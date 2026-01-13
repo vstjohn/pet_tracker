@@ -18,3 +18,21 @@ I built this project to practice Python fundamentals, data structures, and real-
 ```bash
 git clone https://github.com/vstjohn/pet_tracker.git
 cd pet_tracker
+```
+2. Run the app:
+```bash
+python main.py
+```
+## Roadmap
+
+- [x] Add pets
+- [x] View pets
+- [x] Log feedings
+- [x] Add timestamps to feedings
+- [ ] Save data to a file
+- [ ] Medication tracking
+- [ ] Vet visit tracking
+- [ ] Per-pet dashboard
+- [ ] Web version (Flask)
+
+Built by Victoria (Tori) St. John 🐶🐱
