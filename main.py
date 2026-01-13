@@ -1,3 +1,5 @@
+from datetime import datetime
+
 pets = []
 feedings = []
 
@@ -58,9 +60,10 @@ def log_feeding():
         return
 
     food = input("What did you feed them? ").strip()
-    feeding = {"pet": pet_name, "food": food}
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+    feeding = {"pet": pet_name, "food": food, "time": timestamp}
     feedings.append(feeding)
-    print("Logged")
+    print("Logged at", timestamp)
 
 def view_feedings():
     if len(feedings) == 0:
@@ -68,7 +71,14 @@ def view_feedings():
     else:
         print("Feeding history:")
         for f in feedings:
-            print("-", f.get("pet", "UNKNOWN"), "was fed", f.get("food", "UNKNOWN"))
+            print(
+                "-",
+                f.get("pet", "UNKNOWN"),
+                "was fed",
+                f.get("food", "UNKNOWN"),
+                "at",
+                f.get("time", "UNKNOWN TIME")
+            )
 
 def handle_choice(choice):
     if choice == "1":
