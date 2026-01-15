@@ -1,7 +1,10 @@
 from datetime import datetime
+import json
+from pathlib import Path
 
 pets = []
 feedings = []
+DATA_FILE = Path("pet_tracker_data.json")
 
 def clean_title(text):
     return text.strip().title()
@@ -18,11 +21,26 @@ def show_menu():
     print("4. View feedings")
     print("5. Exit")
 
+def save_data():
+    data = {"pets": pets, "feedings": feedings}
+    DATA_FILE.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
+def load_data():
+    global pets, feedings
+
+    if not DATA_FILE.exists():
+        return
+
+    data = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+    pets = data.get("pets", [])
+    feedings = data.get("feedings", [])
+
 def add_pet():
     pet_name = clean_title(input("Enter your pet's name: "))
     species = clean_title(input("Enter your pet's species: "))
     pet = {"name": pet_name, "species": species}
     pets.append(pet)
+    save_data()
     print(pet_name, "has been added!")
 
 def view_pets():
@@ -63,6 +81,7 @@ def log_feeding():
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
     feeding = {"pet": pet_name, "food": food, "time": timestamp}
     feedings.append(feeding)
+    save_data()
     print("Logged at", timestamp)
 
 def view_feedings():
@@ -97,6 +116,7 @@ def handle_choice(choice):
     return True
 
 greet_user()
+load_data()
 
 running = True
 while running:
