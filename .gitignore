@@ -1,2 +1,5 @@
 .idea/
 pet_tracker_data.json
+
+# macOS
+.DS_Store
